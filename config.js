@@ -74,15 +74,6 @@ var plugins = [
 if (isProduction) {
   // plugins = plugins.concat(htmls)
   plugins.push(new FilterStyleStubs())
-  plugins.push(new webpack.optimize.UglifyJsPlugin({
-    output: {
-      comments: false
-    },
-    compress: {
-      warnings: false
-    }
-  }))
-
   if (utils.fileExists('./src/assets')) {
     plugins.push(new CopyWebpackPlugin([
       { from: './src/assets', to: 'assets' }

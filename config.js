@@ -35,6 +35,10 @@ const sassLoaders = stylesLoaders.concat([
   'sass-loader?sourceMap'
 ])
 
+const extractCSS = new ExtractTextPlugin('[name].css')
+const extractLESS = new ExtractTextPlugin('[name].css')
+const extractSASS = new ExtractTextPlugin('[name].css')
+
 // setar todos os arquivos de estilos em src/styles
 const styles = _.fromPairs(glob.sync('./src/styles/*.{less,scss,css}').map(_ => {
   return ['styles/' + path.basename(_.replace(/(le|sc)ss$/, 'css'), '.css'), _]
@@ -61,8 +65,10 @@ const htmls = glob.sync('./src/*.{html,pug}').map(template => {
 })
 
 var plugins = [
-  new webpack.NoErrorsPlugin(),
-  new ExtractTextPlugin({ filename: '[name].css', allChunks: true })
+  new webpack.NoEmitOnErrorsPlugin(),
+  extractCSS,
+  extractLESS,
+  extractSASS
 ]
 
 if (isProduction) {
@@ -107,17 +113,17 @@ module.exports = {
   module: {
     rules: [{
       test: /\.(css)$/,
-      loader: ExtractTextPlugin.extract({
+      loader: extractCSS.extract({
         use: stylesLoaders
       })
     }, {
       test: /\.(less)$/,
-      loader: ExtractTextPlugin.extract({
+      loader: extractLESS.extract({
         use: lessLoaders
       })
     }, {
       test: /\.(scss)$/,
-      loader: ExtractTextPlugin.extract({
+      loader: extractSASS.extract({
         use: sassLoaders
       })
     }, {

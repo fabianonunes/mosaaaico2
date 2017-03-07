@@ -137,7 +137,7 @@ module.exports = {
 
   plugins,
 
-  devtool: isProduction ? '' : 'eval',
+  devtool: isProduction ? '' : 'inline-source-map',
 
   devServer: {
     contentBase: './src',

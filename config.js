@@ -3,6 +3,7 @@ const glob = require('glob')
 const path = require('path')
 const _ = require('lodash')
 const utils = require('./utils')
+const autoprefixer = require('autoprefixer')
 const FilterStyleStubs = require('./plugins/filterStyleStubs.js')
 
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -14,18 +15,24 @@ const port = Number(process.env.PORT) || 8000
 const isProduction = ENV === 'production'
 
 const stylesLoaders = [
-  { loader: 'file-loader?name=styles/[name].css' },
-  // { loader: ExtractTextPlugin.extract({ loader: 'css-loader' }) },
-  { loader: 'extract-loader' },
-  { loader: 'css-loader?sourceMap' },
-  { loader: 'postcss-loader' }
+  'css-loader?sourceMap',
+  {
+    loader: 'postcss-loader',
+    options: {
+      plugins: () => [
+        autoprefixer({ browsers: 'last 2 versions' })
+      ]
+    }
+  }
 ]
+
 const lessLoaders = stylesLoaders.concat([
-  { loader: 'less-loader?sourceMap' }
+  'less-loader?sourceMap'
 ])
+
 const sassLoaders = stylesLoaders.concat([
-  { loader: 'resolve-url-loader' },
-  { loader: 'sass-loader?sourceMap' }
+  'resolve-url-loader',
+  'sass-loader?sourceMap'
 ])
 
 // setar todos os arquivos de estilos em src/styles
@@ -54,8 +61,8 @@ const htmls = glob.sync('./src/*.{html,pug}').map(template => {
 })
 
 var plugins = [
-  new webpack.NoErrorsPlugin()
-  // new ExtractTextPlugin({ filename: '[name].css' })
+  new webpack.NoErrorsPlugin(),
+  new ExtractTextPlugin({ filename: '[name].css', allChunks: true })
 ]
 
 if (isProduction) {
@@ -100,13 +107,19 @@ module.exports = {
   module: {
     rules: [{
       test: /\.(css)$/,
-      use: stylesLoaders
+      loader: ExtractTextPlugin.extract({
+        use: stylesLoaders
+      })
     }, {
       test: /\.(less)$/,
-      use: lessLoaders
+      loader: ExtractTextPlugin.extract({
+        use: lessLoaders
+      })
     }, {
       test: /\.(scss)$/,
-      use: sassLoaders
+      loader: ExtractTextPlugin.extract({
+        use: sassLoaders
+      })
     }, {
       test: /\.json$/,
       loader: 'json-loader'
@@ -124,14 +137,6 @@ module.exports = {
         : 'file-loader?name=fonts/[name].[ext]'
     }]
   },
-
-  // postcss: function (ctx) {
-  //   return [
-  //     require('autoprefixer')({
-  //       browsers: ['last 3 version', 'ie >= 10']
-  //     })
-  //   ]
-  // },
 
   plugins,
 

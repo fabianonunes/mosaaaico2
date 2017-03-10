@@ -132,6 +132,11 @@ module.exports = {
       loader: isProduction
         ? 'file-loader?name=fonts/[name]_[hash:5].[ext]'
         : 'file-loader?name=fonts/[name].[ext]'
+    }, {
+      test: /\.(png|jpeg|gif)(\?.*)?$/i,
+      loader: isProduction
+        ? 'file-loader?name=images/[name]_[hash:5].[ext]'
+        : 'file-loader?name=images/[name].[ext]'
     }]
   },
 

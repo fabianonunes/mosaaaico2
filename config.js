@@ -105,17 +105,20 @@ module.exports = {
     rules: [{
       test: /\.(css)$/,
       loader: extractCSS.extract({
-        use: stylesLoaders
+        use: stylesLoaders,
+        publicPath: '../'
       })
     }, {
       test: /\.(less)$/,
       loader: extractLESS.extract({
-        use: lessLoaders
+        use: lessLoaders,
+        publicPath: '../'
       })
     }, {
       test: /\.(scss)$/,
       loader: extractSASS.extract({
-        use: sassLoaders
+        use: sassLoaders,
+        publicPath: '../'
       })
     }, {
       test: /\.json$/,

@@ -35,9 +35,9 @@ const sassLoaders = stylesLoaders.concat([
   'sass-loader?sourceMap'
 ])
 
-const extractCSS = new ExtractTextPlugin('[name].css')
-const extractLESS = new ExtractTextPlugin('[name].css')
-const extractSASS = new ExtractTextPlugin('[name].css')
+const extractCSS = new ExtractTextPlugin({ filename: '[name].css', allChunks: true })
+const extractLESS = new ExtractTextPlugin({ filename: '[name].css', allChunks: true })
+const extractSASS = new ExtractTextPlugin({ filename: '[name].css', allChunks: true })
 
 // setar todos os arquivos de estilos em src/styles
 const styles = _.fromPairs(glob.sync('./src/styles/*.{less,scss,css}').map(_ => {

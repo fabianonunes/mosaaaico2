@@ -58,8 +58,8 @@ switch (script) {
         fse.copySync(_, dest)
       }
     })
-    fse.mkdirp(path.join(cwd, 'src/styles'))
-    fse.mkdirp(path.join(cwd, 'src/js'))
+    fse.mkdirsSync(path.join(cwd, 'src/styles'))
+    fse.mkdirsSync(path.join(cwd, 'src/js'))
     json.update(path.join(cwd, 'package.json'), {
       scripts: {
         dev: 'mosaaaico2 dev',

@@ -21,7 +21,8 @@ const stylesLoaders = [
     options: {
       sourceMap: true,
       plugins: () => [
-        autoprefixer({ browsers: 'last 2 versions' })
+        autoprefixer({ browsers: 'last 2 versions' }),
+        require('postcss-custom-media')()
       ]
     }
   }

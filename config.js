@@ -96,9 +96,9 @@ if (scripts['js/vendors']) {
 module.exports = {
   output: {
     filename: '[name].js',
-    path: isProduction ? './dist' : void 0,
+    path: isProduction ? path.resolve('./dist') : void 0
     // publicPath: isProduction ? '/' : `http://${os.hostname()}:${port}/`
-    publicPath: isProduction ? '/' : `http://localhost:${port}/`
+    // publicPath: isProduction ? '/' : `http://localhost:${port}/`
   },
 
   entry: _.assign({}, styles, scripts),

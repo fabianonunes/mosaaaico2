@@ -1,6 +1,6 @@
 {
   "name": "mosaaaico2",
-  "version": "1.14.0-alpha.14",
+  "version": "1.14.0-alpha.15",
   "description": "",
   "main": "index.js",
   "author": "Fabiano Nunes @fabianonunes",
@@ -13,7 +13,7 @@
     "postinstall": "node ./bin/build.js init"
   },
   "engines": {
-    "node": "^7.0.0"
+    "node": ">=7.6.0"
   },
   "dependencies": {
     "autoprefixer": "^7.1.2",

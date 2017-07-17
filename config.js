@@ -3,9 +3,11 @@ const glob = require('glob')
 const path = require('path')
 const _ = require('lodash')
 const utils = require('./utils')
+const autoprefixer = require('autoprefixer')
 const FilterStyleStubs = require('./plugins/filterStyleStubs.js')
 
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const ENV = process.env.NODE_ENV || 'development'
@@ -13,13 +15,30 @@ const port = Number(process.env.PORT) || 8000
 const isProduction = ENV === 'production'
 
 const stylesLoaders = [
-  'file?name=styles/[name].css',
-  'extract',
-  'css?sourceMap',
-  'postcss'
+  'css-loader?sourceMap',
+  {
+    loader: 'postcss-loader',
+    options: {
+      sourceMap: true,
+      plugins: () => [
+        autoprefixer({ browsers: 'last 2 versions' })
+      ]
+    }
+  }
 ]
-const lessLoaders = stylesLoaders.concat(['less?sourceMap'])
-const sassLoaders = stylesLoaders.concat(['resolve-url', 'sass?sourceMap'])
+
+const lessLoaders = stylesLoaders.concat([
+  'less-loader?sourceMap'
+])
+
+// const sassLoaders = stylesLoaders.concat([
+//   'resolve-url-loader',
+//   'sass-loader?sourceMap'
+// ])
+
+const extractCSS = new ExtractTextPlugin({ filename: '[name].css', allChunks: true })
+const extractLESS = new ExtractTextPlugin({ filename: '[name].css', allChunks: true })
+const extractSASS = new ExtractTextPlugin({ filename: '[name].css', allChunks: true })
 
 // setar todos os arquivos de estilos em src/styles
 const styles = _.fromPairs(glob.sync('./src/styles/*.{less,scss,css}').map(_ => {
@@ -36,22 +55,23 @@ const scripts = _.fromPairs(glob.sync('./src/js/*.js').map(_ => {
 // }))
 
 // setar todos os htmls de estilos em src
-const htmls = glob.sync('./src/*.{html,pug}').map(template => {
+const htmls = glob.sync('./src/pages/*.{html,pug}').map(template => {
   const filename = path.basename(template).replace(/\.(html|pug)$/, '')
   return new HtmlWebpackPlugin({
     template: template,
-    filename: filename + '.html',
-    inject: false,
-    chunks: []
+    filename: filename + '.html'
   })
 })
 
 var plugins = [
-  new webpack.NoErrorsPlugin()
+  new webpack.NoEmitOnErrorsPlugin(),
+  extractCSS,
+  extractLESS,
+  extractSASS,
+  ...htmls
 ]
 
 if (isProduction) {
-  plugins = plugins.concat(htmls)
   plugins.push(new FilterStyleStubs())
   if (utils.fileExists('./src/assets')) {
     plugins.push(new CopyWebpackPlugin([
@@ -73,48 +93,55 @@ if (scripts['js/vendors']) {
 module.exports = {
   output: {
     filename: '[name].js',
-    path: isProduction ? './dist' : void 0,
+    path: isProduction ? path.resolve('./dist') : void 0
     // publicPath: isProduction ? '/' : `http://${os.hostname()}:${port}/`
-    publicPath: isProduction ? '/' : `http://localhost:${port}/`
+    // publicPath: isProduction ? '/' : `http://localhost:${port}/`
   },
 
   entry: _.assign({}, styles, scripts),
 
   module: {
-    loaders: [{
+    rules: [{
       test: /\.(css)$/,
-      loader: stylesLoaders.join('!')
+      loader: extractCSS.extract({
+        use: stylesLoaders,
+        publicPath: '../'
+      })
     }, {
       test: /\.(less)$/,
-      loader: lessLoaders.join('!')
-    }, {
-      test: /\.(scss)$/,
-      loader: sassLoaders.join('!')
-    }, {
-      test: /\.json$/,
-      loader: 'json'
+      loader: extractLESS.extract({
+        use: lessLoaders,
+        publicPath: '../'
+      })
+    // }, {
+    //   test: /\.(scss)$/,
+    //   loader: extractSASS.extract({
+    //     use: sassLoaders,
+    //     publicPath: '../'
+    //   })
     }, {
       test: /\.(pug|jade)$/,
-      loader: 'pug?pretty&root=' + utils.resolveApp('./node_modules')
+      loader: 'pug-loader',
+      options: {
+        pretty: true,
+        root: utils.resolveApp('./node_modules')
+      }
     }, {
       test: /\.(svg|woff|ttf|eot|woff2)(\?.*)?$/i,
       loader: isProduction
-        ? 'file?name=fonts/[name]_[hash:5].[ext]'
-        : 'file?name=fonts/[name].[ext]'
+        ? 'file-loader?name=fonts/[name]_[hash:5].[ext]'
+        : 'file-loader?name=fonts/[name].[ext]'
+    }, {
+      test: /\.(png|jpe?g|gif)(\?.*)?$/i,
+      loader: isProduction
+        ? 'file-loader?name=images/[name]_[hash:5].[ext]'
+        : 'file-loader?name=images/[name].[ext]'
     }]
-  },
-
-  postcss: function (ctx) {
-    return [
-      require('autoprefixer')({
-        browsers: ['last 3 version', 'ie >= 10']
-      })
-    ]
   },
 
   plugins,
 
-  devtool: isProduction ? '' : 'eval',
+  devtool: isProduction ? '' : 'inline-source-map',
 
   devServer: {
     contentBase: './src',

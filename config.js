@@ -55,13 +55,11 @@ const scripts = _.fromPairs(glob.sync('./src/js/*.js').map(_ => {
 // }))
 
 // setar todos os htmls de estilos em src
-const htmls = glob.sync('./src/*.{html,pug}').map(template => {
+const htmls = glob.sync('./src/pages/*.{html,pug}').map(template => {
   const filename = path.basename(template).replace(/\.(html|pug)$/, '')
   return new HtmlWebpackPlugin({
     template: template,
-    filename: filename + '.html',
-    inject: false,
-    chunks: []
+    filename: filename + '.html'
   })
 })
 
@@ -69,11 +67,11 @@ var plugins = [
   new webpack.NoEmitOnErrorsPlugin(),
   extractCSS,
   extractLESS,
-  extractSASS
+  extractSASS,
+  ...htmls
 ]
 
 if (isProduction) {
-  // plugins = plugins.concat(htmls)
   plugins.push(new FilterStyleStubs())
   if (utils.fileExists('./src/assets')) {
     plugins.push(new CopyWebpackPlugin([

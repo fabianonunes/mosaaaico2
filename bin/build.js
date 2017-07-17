@@ -9,13 +9,16 @@ var glob = require('glob')
 var utils = require('../utils')
 var json = require('json-update')
 var script = process.argv[2]
-// var isPublic = process.argv[3] === 'public'
+var isPublic = process.env.PUBLIC !== void 0
 
 var builderDirectory = fs.realpathSync(__dirname)
 
 var config = utils.fileExists(utils.resolveApp('webpack.config.js'))
   ? [] : ['--config', path.resolve(builderDirectory, '../default.js')]
-// config = ['--host', (isPublic ? '0.0.0.0' : 'localhost')].concat(config)
+
+if (isPublic) {
+  config = [...config, '--host', (isPublic ? process.env.PUBLIC : 'localhost')]
+}
 
 var result
 switch (script) {
@@ -58,8 +61,8 @@ switch (script) {
         fse.copySync(_, dest)
       }
     })
-    fse.mkdirp(path.join(cwd, 'src/styles'))
-    fse.mkdirp(path.join(cwd, 'src/js'))
+    fse.mkdirsSync(path.join(cwd, 'src/styles'))
+    fse.mkdirsSync(path.join(cwd, 'src/js'))
     json.update(path.join(cwd, 'package.json'), {
       scripts: {
         dev: 'mosaaaico2 dev',

@@ -32,10 +32,10 @@ const lessLoaders = stylesLoaders.concat([
   'less-loader?sourceMap'
 ])
 
-const sassLoaders = stylesLoaders.concat([
-  'resolve-url-loader',
-  'sass-loader?sourceMap'
-])
+// const sassLoaders = stylesLoaders.concat([
+//   'resolve-url-loader',
+//   'sass-loader?sourceMap'
+// ])
 
 const extractCSS = new ExtractTextPlugin({ filename: '[name].css', allChunks: true })
 const extractLESS = new ExtractTextPlugin({ filename: '[name].css', allChunks: true })
@@ -116,12 +116,12 @@ module.exports = {
         use: lessLoaders,
         publicPath: '../'
       })
-    }, {
-      test: /\.(scss)$/,
-      loader: extractSASS.extract({
-        use: sassLoaders,
-        publicPath: '../'
-      })
+    // }, {
+    //   test: /\.(scss)$/,
+    //   loader: extractSASS.extract({
+    //     use: sassLoaders,
+    //     publicPath: '../'
+    //   })
     }, {
       test: /\.json$/,
       loader: 'json-loader'

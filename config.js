@@ -123,9 +123,6 @@ module.exports = {
     //     publicPath: '../'
     //   })
     }, {
-      test: /\.json$/,
-      loader: 'json-loader'
-    }, {
       test: /\.(pug|jade)$/,
       loader: 'pug-loader',
       options: {
@@ -138,7 +135,7 @@ module.exports = {
         ? 'file-loader?name=fonts/[name]_[hash:5].[ext]'
         : 'file-loader?name=fonts/[name].[ext]'
     }, {
-      test: /\.(png|jpeg|gif)(\?.*)?$/i,
+      test: /\.(png|jpe?g|gif)(\?.*)?$/i,
       loader: isProduction
         ? 'file-loader?name=images/[name]_[hash:5].[ext]'
         : 'file-loader?name=images/[name].[ext]'

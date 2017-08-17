@@ -1559,11 +1559,11 @@ extglob@^0.3.1:
   dependencies:
     is-extglob "^1.0.0"
 
-extract-loader@fabianonunes/extract-loader#built:
-  version "0.1.1-alpha.1"
-  resolved "https://codeload.github.com/fabianonunes/extract-loader/tar.gz/99e6bf601fb9cc7911ad6c0e7fd29ea47bde76af"
+extract-loader@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/extract-loader/-/extract-loader-1.0.0.tgz#a8e95fb1cf8992980932fd34ee350bdd3aa1fc77"
   dependencies:
-    loader-utils "^0.2.16"
+    loader-utils "^1.1.0"
 
 extract-text-webpack-plugin@^3.0.0:
   version "3.0.0"
@@ -4377,8 +4377,8 @@ table@^4.0.1:
     string-width "^2.0.0"
 
 tapable@^0.2.7:
-  version "0.2.8"
-  resolved "https://registry.yarnpkg.com/tapable/-/tapable-0.2.8.tgz#99372a5c999bf2df160afc0d74bed4f47948cd22"
+  version "0.2.7"
+  resolved "https://registry.yarnpkg.com/tapable/-/tapable-0.2.7.tgz#e46c0daacbb2b8a98b9b0cea0f4052105817ed5c"
 
 tar-pack@~3.3.0:
   version "3.3.0"

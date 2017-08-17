@@ -1,6 +1,6 @@
 {
   "name": "mosaaaico2",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "",
   "main": "index.js",
   "author": "Fabiano Nunes @fabianonunes",
@@ -21,7 +21,7 @@
     "cross-spawn": "^5.1.0",
     "css-loader": "0.14.5",
     "express": "^4.15.4",
-    "extract-loader": "fabianonunes/extract-loader#built",
+    "extract-loader": "^1.0.0",
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^0.11.2",
     "fs-extra": "^4.0.1",

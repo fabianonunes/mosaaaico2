@@ -36,7 +36,6 @@ switch (script) {
     )
     rimraf.sync('./dist/styles/*.js')
     process.exit(result.status)
-    break
 
   case 'dev':
     process.env.NODE_ENV = 'development'
@@ -46,7 +45,6 @@ switch (script) {
       { stdio: 'inherit' }
     )
     process.exit(result.status)
-    break
 
   case 'init':
     if (process.env.TEMPLATE !== 'true') {
@@ -78,5 +76,4 @@ switch (script) {
   default:
     console.log('Unknown script "' + script + '".')
     process.exit(1)
-    break
 }

@@ -17,7 +17,11 @@ var config = utils.fileExists(utils.resolveApp('webpack.config.js'))
   ? [] : ['--config', path.resolve(builderDirectory, '../default.js')]
 
 if (isPublic) {
-  config = [...config, '--allowed-hosts', (isPublic ? process.env.PUBLIC_HOST : 'localhost')]
+  config = [
+    ...config,
+    '--allowed-hosts', (isPublic ? process.env.PUBLIC_HOST : 'localhost'),
+    '--host', '0.0.0.0'
+  ]
 }
 
 var result

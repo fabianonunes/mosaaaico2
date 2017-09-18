@@ -1,0 +1,89 @@
+{
+  "name": "fabianonunes/mosaaaico2",
+  "version": "0.1.4",
+  "libraries": {
+    "xv": "^1.1.25"
+  },
+  "title": "teste",
+  "branch": "",
+  "style": {
+    "name": "Humanist",
+    "componentSet": {
+      "nav": "nav/BasicNav",
+      "header": "header/LightBannerHeader",
+      "article": "article/ReaderArticle",
+      "footer": "footer/BasicFooter"
+    },
+    "fontFamily": "Athelas, Georgia, serif",
+    "heading": {
+      "fontWeight": 400,
+      "textTransform": "uppercase",
+      "letterSpacing": "0.1em"
+    },
+    "colors": {
+      "text": "#121212",
+      "background": "#fff",
+      "primary": "#ee5544",
+      "secondary": "#005499",
+      "highlight": "#00bd78",
+      "border": "#ddd",
+      "muted": "#f3f3f3"
+    },
+    "layout": {
+      "maxWidth": 768
+    }
+  },
+  "content": [
+    {
+      "component": "nav",
+      "links": [
+        {
+          "href": "https://github.com/fabianonunes/mosaaaico2",
+          "text": "GitHub"
+        },
+        {
+          "href": "https://npmjs.com/package/mosaaaico2",
+          "text": "npm"
+        }
+      ]
+    },
+    {
+      "component": "header",
+      "heading": "mosaaaico2",
+      "subhead": "",
+      "children": [
+        {
+          "component": "ui/TweetButton",
+          "text": "mosaaaico2: ",
+          "url": null
+        },
+        {
+          "component": "ui/GithubButton",
+          "user": "fabianonunes",
+          "repo": "mosaaaico2"
+        }
+      ],
+      "text": "v2.2.1"
+    },
+    {
+      "component": "article",
+      "metadata": {
+        "source": "github.readme"
+      },
+      "html": "\n<p>O <code>mosaaaico2</code> &#xE9; um conjunto de conven&#xE7;&#xF5;es sobre o <code>webpack</code> que simplifica\no desenvolvimento de prot&#xF3;tipos web ao eliminar o processo de configura&#xE7;&#xE3;o.</p>\n<h2>instala&#xE7;&#xE3;o</h2>\n<p>Para instalar o <code>mosaaaico2</code> e criar o esqueleto do projeto, execute\nem um diret&#xF3;rio de sua escolha:</p>\n<pre>env TEMPLATE=<span class=\"hljs-literal\">true</span> yarn add fabianonunes/mosaaaico2 --dev</pre><p>Ao setar a vari&#xE1;vel <code>TEMPLATE=true</code>, a estrutura de diret&#xF3;rios ser&#xE1;\ncriada e alguns arquivos de configura&#xE7;&#xE3;o ser&#xE3;o inclu&#xED;dos\n(<code>.editorconfig</code>, <code>.gitignore</code> e <code>.gitattributes</code>).</p>\n<h2>entradas</h2>\n<p>As <code>entradas</code> s&#xE3;o os arquivos que ser&#xE3;o processados pelo <code>webpack</code>.\nElas podem ser de tr&#xEA;s tipos: html, folhas de estilos ou javascripts.</p>\n<p>Os HTML</p>\n<p>Todo arquivo <code>[nome].html</code> ou <code>[nome].pug</code> na pasta <code>src</code> ser&#xE1; publicado na raiz do servidor local.</p>\n<p>Nas entradas que produzam HTML ser&#xE3;o injetadas automaticamente as refer&#xEA;ncias <code>link:href</code> e <code>script:src</code> para os seguintes arquivos (caso existam):</p>\n<ul>\n<li>folhas de estilos (css, less ou scss):<ul>\n<li><code>src/styles/vendors.css</code></li>\n<li><code>src/styles/main.css</code></li>\n<li><code>src/styles/[nome].css</code></li>\n</ul>\n</li>\n<li>scripts:<ul>\n<li><code>src/js/vendors.js</code></li>\n<li><code>src/js/main.js</code></li>\n<li><code>src/js/[nome].js</code></li>\n</ul>\n</li>\n</ul>\n<h2>modo desenvolvimento</h2>\n<p>O modo de desenvolvimento &#xE9; iniciado com o comando <code>yarn dev</code>.\nQuando executado,um servidor na porta <code>8000</code> ser&#xE1; iniciado localmente.</p>\n<p>Para alterar a porta, passe a vari&#xE1;vel <code>PORT</code> via linha de comando:</p>\n<pre>env PORT=9090 yarn dev</pre>"
+    },
+    {
+      "component": "footer",
+      "links": [
+        {
+          "href": "https://github.com/fabianonunes/mosaaaico2",
+          "text": "GitHub"
+        },
+        {
+          "href": "https://github.com/fabianonunes",
+          "text": "fabianonunes"
+        }
+      ]
+    }
+  ]
+}

@@ -13,7 +13,7 @@ module.exports = {
       'except': [
         'first-nested'
       ],
-      'ignore': ['after-comment', 'blockless-group']
+      'ignore': ['after-comment', 'blockless-after-blockless']
     }]
   }
 }

@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.3.3
+
+* Atualiza dependências vulneráveis
+
 ## 2.3.2
 
 * Adicionar dependências do sass às `dependencies`

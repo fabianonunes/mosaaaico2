@@ -31,7 +31,7 @@
     "json-update": "^4.0.0",
     "less": "^3.9.0",
     "less-loader": "^4.0.5",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.13",
     "node-sass": "^4.7.2",
     "postcss-loader": "^2.0.10",
     "pug": "^2.0.0-rc.3",
